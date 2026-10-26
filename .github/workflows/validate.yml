@@ -93,7 +93,7 @@ jobs:
 
       - name: Build the registry from this repository
         run: |
-          go install github.com/sirosfoundation/registry-cli/cmd/registry-cli@v0.17.0
+          go install github.com/sirosfoundation/registry-cli/cmd/registry-cli@v0.18.0
           # registry-cli stages generated files next to a local source, so build from a copy
           cp -r "$GITHUB_WORKSPACE" "$RUNNER_TEMP/src"
           sed "s#__REPO__#$RUNNER_TEMP/src#" .github/registry-ci-sources.yaml > "$RUNNER_TEMP/sources.yaml"
