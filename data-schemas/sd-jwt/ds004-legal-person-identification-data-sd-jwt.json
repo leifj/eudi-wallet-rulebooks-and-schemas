@@ -3,8 +3,9 @@
   "$id": "https://registry.siros.org/ewc-consortium/legal-person-identification-data.schema.json",
   "title": "Legal Person Identification Data",
   "description": "Legal PID (LPID): identification data for a legal person, issued by a company registration office as authentic source. Defined by EWC WP3.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "type": "object",
+  "additionalProperties": true,
   "properties": {
     "vct": {
       "type": "string",
@@ -32,7 +33,8 @@
       "maxLength": 2,
       "examples": [
         "NO"
-      ]
+      ],
+      "pattern": "^[A-Z]{2}$"
     },
     "issuing_jurisdiction": {
       "type": "string",
@@ -79,6 +81,61 @@
       "description": "Official current legal person name as registered in the business register.",
       "examples": [
         "Example AS"
+      ]
+    },
+    "iss": {
+      "type": "string",
+      "format": "uri",
+      "description": "Issuer of the attestation, as an HTTPS URL that identifies the issuer."
+    },
+    "iat": {
+      "type": "integer",
+      "description": "Time of issuance as a NumericDate (seconds since the Unix epoch)."
+    },
+    "nbf": {
+      "type": "integer",
+      "description": "Time before which the attestation is not valid, as a NumericDate."
+    },
+    "exp": {
+      "type": "integer",
+      "description": "Time at which the attestation expires, as a NumericDate."
+    },
+    "cnf": {
+      "type": "object",
+      "description": "Confirmation claim that binds the attestation to the key of the holder (RFC 7800).",
+      "properties": {
+        "jwk": {
+          "type": "object",
+          "description": "Public key of the holder as a JWK."
+        }
+      }
+    },
+    "status": {
+      "type": "object",
+      "description": "Reference to the Token Status List entry that carries the revocation status of the attestation.",
+      "properties": {
+        "status_list": {
+          "type": "object",
+          "properties": {
+            "idx": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Index of the attestation in the status list."
+            },
+            "uri": {
+              "type": "string",
+              "format": "uri",
+              "description": "URI of the status list token."
+            }
+          },
+          "required": [
+            "idx",
+            "uri"
+          ]
+        }
+      },
+      "required": [
+        "status_list"
       ]
     }
   },

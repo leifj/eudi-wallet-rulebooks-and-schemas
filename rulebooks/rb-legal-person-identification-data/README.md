@@ -181,3 +181,7 @@ SD-JWT VC:
 
 OpenID4VP:
 <https://openid.net/specs/openid-4-verifiable-presentations-1_0.html>
+
+## Standard SD-JWT VC claims
+
+In addition to the attributes above, the data schema describes the standard SD-JWT VC claims `iss`, `iat`, `nbf`, `exp`, `cnf`, `status` and `vct`. `iss`, `nbf`, `exp`, `cnf`, `status` and `vct` are always disclosed. `status` is a Token Status List reference.

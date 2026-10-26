@@ -208,3 +208,6 @@ A QTSP register is expected with all services that's entitled to offer and their
 4. OpenID4VP: [OpenID4VP Specification](https://openid.net/specs/openid-4-verifiable-presentations-1_0.html)
 5. D4.6 Annex 5 : [D4.6 Annex 5](https://nextcloud.ewc-consortium.eu/apps/files/files/131128?dir=/EWC/WP4%20Interoperability%20and%20infrastructure/Task%204.3/Deliverable%20D4.6/Annexes&openfile=true)
 6. ARF v1.6 [https://eu-digital-identity-wallet.github.io/eudi-doc-architecture-and-reference-framework/latest/architecture-and-reference-framework-main](https://eu-digital-identity-wallet.github.io/eudi-doc-architecture-and-reference-framework/latest/architecture-and-reference-framework-main)
+## Standard SD-JWT VC claims
+
+In addition to the attributes above, the data schema describes the standard SD-JWT VC claims `iss`, `iat`, `nbf`, `exp`, `cnf`, `status` and `vct`. `iss`, `nbf`, `exp`, `cnf`, `status` and `vct` are always disclosed. `status` is a Token Status List reference.

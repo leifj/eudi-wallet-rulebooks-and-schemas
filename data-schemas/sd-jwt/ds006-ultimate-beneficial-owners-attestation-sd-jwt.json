@@ -3,8 +3,9 @@
   "$id": "https://registry.siros.org/ewc-consortium/ultimate-beneficial-owners-attestation.schema.json",
   "title": "Ultimate Beneficial Owners Attestation",
   "description": "Attests the ultimate beneficial owners of a legal person and the nature of their ownership or control, as registered in a national business register (EWC WP3).",
-  "version": "0.9.0",
+  "version": "0.10.0",
   "type": "object",
+  "additionalProperties": true,
   "properties": {
     "vct": {
       "type": "string",
@@ -32,7 +33,12 @@
           "description": "The address of the company."
         }
       },
-      "required": ["legal_person_name", "legal_person_id", "legal_form_type", "registered_address"]
+      "required": [
+        "legal_person_name",
+        "legal_person_id",
+        "legal_form_type",
+        "registered_address"
+      ]
     },
     "ultimate_beneficial_owner": {
       "type": "array",
@@ -79,7 +85,12 @@
                 "description": "Citizenship of the natural person representing the UBO."
               }
             },
-            "required": ["family_name", "first_name", "birth_date", "postal_address"]
+            "required": [
+              "family_name",
+              "first_name",
+              "birth_date",
+              "postal_address"
+            ]
           },
           "ownership_details": {
             "type": "array",
@@ -89,19 +100,40 @@
               "properties": {
                 "nature_of_control": {
                   "type": "string",
-                  "enum": ["voting_rights", "control_through_ownership", "senior_management_position", "other_means_of_control"],
+                  "enum": [
+                    "voting_rights",
+                    "control_through_ownership",
+                    "senior_management_position",
+                    "other_means_of_control"
+                  ],
                   "description": "Nature of the interest held by the UBO in the company."
                 },
                 "ownership_type": {
                   "type": "string",
-                  "enum": ["direct", "indirect", "both"],
+                  "enum": [
+                    "direct",
+                    "indirect",
+                    "both"
+                  ],
                   "description": "The type of ownership held by the UBO (direct, indirect or both)."
                 },
                 "ownership_percentage": {
                   "description": "The percentage of ownership held by the UBO in the company, either a number between 0 and 100 or a bracket.",
                   "oneOf": [
-                    { "type": "number", "minimum": 0, "maximum": 100 },
-                    { "type": "string", "enum": ["0-25", "25-50", "50-75", "75-100"] }
+                    {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 100
+                    },
+                    {
+                      "type": "string",
+                      "enum": [
+                        "0-25",
+                        "25-50",
+                        "50-75",
+                        "75-100"
+                      ]
+                    }
                   ]
                 },
                 "registrable_date": {
@@ -120,13 +152,80 @@
                   "description": "Date when the UBO's interest was last changed."
                 }
               },
-              "required": ["nature_of_control", "ownership_type", "ownership_percentage", "registrable_date"]
+              "required": [
+                "nature_of_control",
+                "ownership_type",
+                "ownership_percentage",
+                "registrable_date"
+              ]
             }
           }
         },
-        "required": ["natural_person_details", "ownership_details"]
+        "required": [
+          "natural_person_details",
+          "ownership_details"
+        ]
       }
+    },
+    "iss": {
+      "type": "string",
+      "format": "uri",
+      "description": "Issuer of the attestation, as an HTTPS URL that identifies the issuer."
+    },
+    "iat": {
+      "type": "integer",
+      "description": "Time of issuance as a NumericDate (seconds since the Unix epoch)."
+    },
+    "nbf": {
+      "type": "integer",
+      "description": "Time before which the attestation is not valid, as a NumericDate."
+    },
+    "exp": {
+      "type": "integer",
+      "description": "Time at which the attestation expires, as a NumericDate."
+    },
+    "cnf": {
+      "type": "object",
+      "description": "Confirmation claim that binds the attestation to the key of the holder (RFC 7800).",
+      "properties": {
+        "jwk": {
+          "type": "object",
+          "description": "Public key of the holder as a JWK."
+        }
+      }
+    },
+    "status": {
+      "type": "object",
+      "description": "Reference to the Token Status List entry that carries the revocation status of the attestation.",
+      "properties": {
+        "status_list": {
+          "type": "object",
+          "properties": {
+            "idx": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Index of the attestation in the status list."
+            },
+            "uri": {
+              "type": "string",
+              "format": "uri",
+              "description": "URI of the status list token."
+            }
+          },
+          "required": [
+            "idx",
+            "uri"
+          ]
+        }
+      },
+      "required": [
+        "status_list"
+      ]
     }
   },
-  "required": ["vct", "legal_person", "ultimate_beneficial_owner"]
+  "required": [
+    "vct",
+    "legal_person",
+    "ultimate_beneficial_owner"
+  ]
 }

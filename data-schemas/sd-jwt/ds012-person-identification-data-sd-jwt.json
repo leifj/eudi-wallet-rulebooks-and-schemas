@@ -3,8 +3,9 @@
   "$id": "https://registry.siros.org/ewc-consortium/person-identification-data.schema.json",
   "title": "Person Identification Data",
   "description": "Physical Person Identification Data (PID) as an SD-JWT VC, following the ARF PID attribute definitions (EWC WP3).",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "type": "object",
+  "additionalProperties": true,
   "properties": {
     "vct": {
       "type": "string",
@@ -39,7 +40,8 @@
       "properties": {
         "country": {
           "type": "string",
-          "description": "The country where the PID user was born, as an alpha-2 country code as specified in ISO 3166-1."
+          "description": "The country where the PID user was born, as an alpha-2 country code as specified in ISO 3166-1.",
+          "pattern": "^[A-Z]{2}$"
         },
         "region": {
           "type": "string",
@@ -68,7 +70,8 @@
         },
         "country": {
           "type": "string",
-          "description": "The country where the PID user currently resides, as an alpha-2 country code as specified in ISO 3166-1."
+          "description": "The country where the PID user currently resides, as an alpha-2 country code as specified in ISO 3166-1.",
+          "pattern": "^[A-Z]{2}$"
         },
         "region": {
           "type": "string",
@@ -173,7 +176,8 @@
       "type": "string",
       "description": "Alpha-2 country code, as defined in ISO 3166-1, of the issuing country or territory.",
       "minLength": 2,
-      "maxLength": 2
+      "maxLength": 2,
+      "pattern": "^[A-Z]{2}$"
     },
     "issuing_jurisdiction": {
       "type": "string",
@@ -198,6 +202,61 @@
     "trust_anchor": {
       "type": "string",
       "description": "URL at which a machine-readable version of the trust anchor used for verifying the PID can be found or looked up. Mandatory for QEAAs under the European Digital Identity Regulation; optional for PIDs so that Relying Parties can validate PIDs in the same manner."
+    },
+    "iss": {
+      "type": "string",
+      "format": "uri",
+      "description": "Issuer of the attestation, as an HTTPS URL that identifies the issuer."
+    },
+    "iat": {
+      "type": "integer",
+      "description": "Time of issuance as a NumericDate (seconds since the Unix epoch)."
+    },
+    "nbf": {
+      "type": "integer",
+      "description": "Time before which the attestation is not valid, as a NumericDate."
+    },
+    "exp": {
+      "type": "integer",
+      "description": "Time at which the attestation expires, as a NumericDate."
+    },
+    "cnf": {
+      "type": "object",
+      "description": "Confirmation claim that binds the attestation to the key of the holder (RFC 7800).",
+      "properties": {
+        "jwk": {
+          "type": "object",
+          "description": "Public key of the holder as a JWK."
+        }
+      }
+    },
+    "status": {
+      "type": "object",
+      "description": "Reference to the Token Status List entry that carries the revocation status of the attestation.",
+      "properties": {
+        "status_list": {
+          "type": "object",
+          "properties": {
+            "idx": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Index of the attestation in the status list."
+            },
+            "uri": {
+              "type": "string",
+              "format": "uri",
+              "description": "URI of the status list token."
+            }
+          },
+          "required": [
+            "idx",
+            "uri"
+          ]
+        }
+      },
+      "required": [
+        "status_list"
+      ]
     }
   },
   "required": [

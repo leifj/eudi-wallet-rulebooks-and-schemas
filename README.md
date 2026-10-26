@@ -1,6 +1,6 @@
 # EWC LSP - EUDI Wallet Rulebooks and Data Schemas for Electronic Attestations of Attributes
 
-This repository contains the rulebooks and data schemas used in the EWC Large Scale Pilot use cases, as a reference for interoperability, governance and compliance in digital identity frameworks. Its layout is the one that registry-cli reads with its `rulebook-catalog` plugin, so the attestation types are published in the SIROS Credential Registry at <https://registry.siros.org/ewc-consortium/> without conversion. See [docs/registry-publishing.md](docs/registry-publishing.md).
+This repository contains the rulebooks and data schemas used in the EWC Large Scale Pilot use cases, as a reference for interoperability, governance and compliance in digital identity frameworks. Its layout is the one that registry-cli reads with its `rulebook-catalog` plugin, so the attestation types are published in the SIROS Credential Registry at <https://registry.siros.org/ewc-consortium/> without conversion. See [docs/registry-publishing.md](docs/registry-publishing.md). [docs/webuild-alignment.md](docs/webuild-alignment.md) records how the schemas relate to the WE BUILD catalogue and to the standards.
 
 Authors create new rulebooks and data schemas on a separate branch. Once agreed within the work package, they raise a pull request to `main`. The `Validate schemas and registry build` check builds the repository with registry-cli and reports any problem before merge.
 

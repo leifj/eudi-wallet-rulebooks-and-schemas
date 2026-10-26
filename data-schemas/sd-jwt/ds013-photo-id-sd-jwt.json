@@ -3,8 +3,9 @@
   "$id": "https://registry.siros.org/ewc-consortium/photo-id.schema.json",
   "title": "Photo ID",
   "description": "Verifiable credential for a Photo ID based on ISO/IEC 23220-1 and the org.iso.23220.photoid.1 claims, with optional ICAO Digital Travel Credential (DTC) data groups.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "type": "object",
+  "additionalProperties": true,
   "properties": {
     "vct": {
       "type": "string",
@@ -151,110 +152,147 @@
     "dtc_dg1": {
       "description": "The full MRZ data for DTC Data Group 1, encoded as a string.",
       "type": "string",
-      "format": "binary",
       "contentEncoding": "base64"
     },
     "dtc_dg2": {
       "description": "The biometric data for DTC Data Group 2 (e.g., facial image).",
       "type": "string",
-      "format": "binary",
       "contentEncoding": "base64"
     },
     "dtc_dg3": {
       "description": "Binary data for DTC Data Group 3.",
       "type": "string",
-      "format": "binary",
       "contentEncoding": "base64"
     },
     "dtc_dg4": {
       "description": "Binary data for DTC Data Group 4.",
       "type": "string",
-      "format": "binary",
       "contentEncoding": "base64"
     },
     "dtc_dg5": {
       "description": "Binary data for DTC Data Group 5.",
       "type": "string",
-      "format": "binary",
       "contentEncoding": "base64"
     },
     "dtc_dg6": {
       "description": "Binary data for DTC Data Group 6.",
       "type": "string",
-      "format": "binary",
       "contentEncoding": "base64"
     },
     "dtc_dg7": {
       "description": "Binary data for DTC Data Group 7.",
       "type": "string",
-      "format": "binary",
       "contentEncoding": "base64"
     },
     "dtc_dg8": {
       "description": "Binary data for DTC Data Group 8.",
       "type": "string",
-      "format": "binary",
       "contentEncoding": "base64"
     },
     "dtc_dg9": {
       "description": "Binary data for DTC Data Group 9.",
       "type": "string",
-      "format": "binary",
       "contentEncoding": "base64"
     },
     "dtc_dg10": {
       "description": "Binary data for DTC Data Group 10.",
       "type": "string",
-      "format": "binary",
       "contentEncoding": "base64"
     },
     "dtc_dg11": {
       "description": "Binary data for DTC Data Group 11.",
       "type": "string",
-      "format": "binary",
       "contentEncoding": "base64"
     },
     "dtc_dg12": {
       "description": "Binary data for DTC Data Group 12.",
       "type": "string",
-      "format": "binary",
       "contentEncoding": "base64"
     },
     "dtc_dg13": {
       "description": "Binary data for DTC Data Group 13.",
       "type": "string",
-      "format": "binary",
       "contentEncoding": "base64"
     },
     "dtc_dg14": {
       "description": "Binary data for DTC Data Group 14.",
       "type": "string",
-      "format": "binary",
       "contentEncoding": "base64"
     },
     "dtc_dg15": {
       "description": "Binary data for DTC Data Group 15.",
       "type": "string",
-      "format": "binary",
       "contentEncoding": "base64"
     },
     "dtc_dg16": {
       "description": "Binary data for DTC Data Group 16.",
       "type": "string",
-      "format": "binary",
       "contentEncoding": "base64"
     },
     "dtc_sod": {
       "description": "The encoded Security Object Document (SOD) for DTC, which contains the digital signature and other cryptographic information.",
       "type": "string",
-      "format": "binary",
       "contentEncoding": "base64"
     },
     "dg_content_info": {
       "description": "Binary data of the DTCContentInfo",
       "type": "string",
-      "format": "binary",
       "contentEncoding": "base64"
+    },
+    "iss": {
+      "type": "string",
+      "format": "uri",
+      "description": "Issuer of the attestation, as an HTTPS URL that identifies the issuer."
+    },
+    "iat": {
+      "type": "integer",
+      "description": "Time of issuance as a NumericDate (seconds since the Unix epoch)."
+    },
+    "nbf": {
+      "type": "integer",
+      "description": "Time before which the attestation is not valid, as a NumericDate."
+    },
+    "exp": {
+      "type": "integer",
+      "description": "Time at which the attestation expires, as a NumericDate."
+    },
+    "cnf": {
+      "type": "object",
+      "description": "Confirmation claim that binds the attestation to the key of the holder (RFC 7800).",
+      "properties": {
+        "jwk": {
+          "type": "object",
+          "description": "Public key of the holder as a JWK."
+        }
+      }
+    },
+    "status": {
+      "type": "object",
+      "description": "Reference to the Token Status List entry that carries the revocation status of the attestation.",
+      "properties": {
+        "status_list": {
+          "type": "object",
+          "properties": {
+            "idx": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Index of the attestation in the status list."
+            },
+            "uri": {
+              "type": "string",
+              "format": "uri",
+              "description": "URI of the status list token."
+            }
+          },
+          "required": [
+            "idx",
+            "uri"
+          ]
+        }
+      },
+      "required": [
+        "status_list"
+      ]
     }
   },
   "required": [

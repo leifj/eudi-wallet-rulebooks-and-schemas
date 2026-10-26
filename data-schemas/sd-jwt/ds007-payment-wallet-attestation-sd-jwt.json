@@ -3,15 +3,17 @@
   "$id": "https://registry.siros.org/ewc-consortium/payment-wallet-attestation.schema.json",
   "title": "Payment Wallet Attestation",
   "description": "Payment Wallet Attestation (PWA) issued by a payment service provider (PSP) to bind a wallet to a funding source.",
-  "version": "0.9.0",
+  "version": "0.10.0",
   "type": "object",
+  "additionalProperties": true,
   "properties": {
     "iss": {
       "description": "Issuer of the credential.",
       "type": "string",
       "examples": [
         "https://psp.example.com"
-      ]
+      ],
+      "format": "uri"
     },
     "aud": {
       "description": "Intended audience of the credential.",
@@ -23,15 +25,15 @@
     },
     "iat": {
       "description": "Time of issuance.",
-      "type": "number"
+      "type": "integer"
     },
     "nbf": {
       "description": "Not to be used before this time.",
-      "type": "number"
+      "type": "integer"
     },
     "exp": {
       "description": "Expiry time of the credential.",
-      "type": "number"
+      "type": "integer"
     },
     "vct": {
       "type": "string",
@@ -156,6 +158,34 @@
       },
       "required": [
         "jwk"
+      ]
+    },
+    "status": {
+      "type": "object",
+      "description": "Reference to the Token Status List entry that carries the revocation status of the attestation.",
+      "properties": {
+        "status_list": {
+          "type": "object",
+          "properties": {
+            "idx": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Index of the attestation in the status list."
+            },
+            "uri": {
+              "type": "string",
+              "format": "uri",
+              "description": "URI of the status list token."
+            }
+          },
+          "required": [
+            "idx",
+            "uri"
+          ]
+        }
+      },
+      "required": [
+        "status_list"
       ]
     }
   },
