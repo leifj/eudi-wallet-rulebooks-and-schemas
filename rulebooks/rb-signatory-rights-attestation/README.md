@@ -117,7 +117,7 @@ This table contains the name of the attribute, its description and whether the a
 | signatory_rights[].post[].code | National code of the post. | No |
 | signatory_rights[].post[].name | Name of the post as registered. | Yes (per post) |
 
-The attestation is an SD-JWT VC with the `vct` value `eu.ewc.signatory-rights-attestation.1`. The claims sit at the top level of the SD-JWT VC payload; revocation uses the SD-JWT VC `status` claim.
+The attestation is an SD-JWT VC with the `vct` value `eu.aptitude.signatory-rights-attestation.1`. The claims sit at the top level of the SD-JWT VC payload; revocation uses the SD-JWT VC `status` claim.
 
 The **Signatory Rights schema** is available in this repository: [Signatory Rights data schema](../../data-schemas/sd-jwt/ds003-signatory-rights-attestation-sd-jwt.json).
 

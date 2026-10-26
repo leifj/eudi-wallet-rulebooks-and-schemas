@@ -34,22 +34,22 @@ assets/                             optional card artwork per slug
 
 | **Schema #** | **Title** | **vct** | **Version** | **Data schema** | **Rulebook** |
 | --- | --- | --- | --- | --- | --- |
-| DS-001 | EU Company Certificate | eu.ewc.eu-company-certificate.1 | 1.0.0 | [schema](data-schemas/sd-jwt/ds001-eu-company-certificate-sd-jwt.json) | [RB-002](rulebooks/rb-eu-company-certificate/README.md) |
-| DS-002 | IBAN Attestation | eu.ewc.iban-attestation.1 | 1.0.0 | [schema](data-schemas/sd-jwt/ds002-iban-attestation-sd-jwt.json) | [RB-003](rulebooks/rb-iban-attestation/README.md) |
-| DS-003 | Signatory Rights Attestation | eu.ewc.signatory-rights-attestation.1 | 1.0.0 | [schema](data-schemas/sd-jwt/ds003-signatory-rights-attestation-sd-jwt.json) | [RB-004](rulebooks/rb-signatory-rights-attestation/README.md) |
-| DS-004 | Legal Person Identification Data | eu.ewc.legal-person-identification-data.1 | 1.0.0 | [schema](data-schemas/sd-jwt/ds004-legal-person-identification-data-sd-jwt.json) | [RB-001](rulebooks/rb-legal-person-identification-data/README.md) |
+| DS-001 | EU Company Certificate | eu.aptitude.eu-company-certificate.1 | 1.0.0 | [schema](data-schemas/sd-jwt/ds001-eu-company-certificate-sd-jwt.json) | [RB-002](rulebooks/rb-eu-company-certificate/README.md) |
+| DS-002 | IBAN Attestation | eu.aptitude.iban-attestation.1 | 1.0.0 | [schema](data-schemas/sd-jwt/ds002-iban-attestation-sd-jwt.json) | [RB-003](rulebooks/rb-iban-attestation/README.md) |
+| DS-003 | Signatory Rights Attestation | eu.aptitude.signatory-rights-attestation.1 | 1.0.0 | [schema](data-schemas/sd-jwt/ds003-signatory-rights-attestation-sd-jwt.json) | [RB-004](rulebooks/rb-signatory-rights-attestation/README.md) |
+| DS-004 | Legal Person Identification Data | eu.aptitude.legal-person-identification-data.1 | 1.0.0 | [schema](data-schemas/sd-jwt/ds004-legal-person-identification-data-sd-jwt.json) | [RB-001](rulebooks/rb-legal-person-identification-data/README.md) |
 | DS-005 | Ferry Boarding Pass | VerifiableFerryBoardingPassCredentialSDJWT | 0.9.0 | [schema](data-schemas/sd-jwt/ds005-ferry-boarding-pass-sd-jwt.json) | - |
-| DS-006 | Ultimate Beneficial Owners Attestation | eu.ewc.ultimate-beneficial-owners-attestation.1 | 0.9.0 | [schema](data-schemas/sd-jwt/ds006-ultimate-beneficial-owners-attestation-sd-jwt.json) | [RB-005](rulebooks/rb-ultimate-beneficial-owners-attestation/README.md) |
+| DS-006 | Ultimate Beneficial Owners Attestation | eu.aptitude.ultimate-beneficial-owners-attestation.1 | 0.9.0 | [schema](data-schemas/sd-jwt/ds006-ultimate-beneficial-owners-attestation-sd-jwt.json) | [RB-005](rulebooks/rb-ultimate-beneficial-owners-attestation/README.md) |
 | DS-007 | Payment Wallet Attestation | PaymentWalletAttestation | 0.9.0 | [schema](data-schemas/sd-jwt/ds007-payment-wallet-attestation-sd-jwt.json) | - |
 | DS-009 | Personal Contact Details | eu.europa.ec.eudi.pcd.1 | 0.9.0 | [schema](data-schemas/sd-jwt/ds009-personal-contact-details-document-sd-jwt.json) | - |
 | DS-010 | Student ID | VerifiableStudentIDSDJWT | 0.9.0 | [schema](data-schemas/sd-jwt/ds010-student-id-sd-jwt.json) | - |
 | DS-011 | vReceipt | VerifiablevReceiptSDJWT | 0.9.0 | [schema](data-schemas/sd-jwt/ds011-vReceipts-sd-jwt.json) | - |
-| DS-012 | Person Identification Data | urn:eudi:pid:1 | 1.0.0 | [schema](data-schemas/sd-jwt/ds012-person-identification-data-sd-jwt.json) | - |
+| DS-012 | Person Identification Data | urn:eudi:pid:aptitude:1 | 1.0.0 | [schema](data-schemas/sd-jwt/ds012-person-identification-data-sd-jwt.json) | - |
 | DS-013 | Photo ID | eu.europa.ec.eudi.photoid.1 | 1.0.0 | [schema](data-schemas/sd-jwt/ds013-photo-id-sd-jwt.json) | - |
-| DS-014 | ID Proofing ETSI 119 461 | eu.ewc.idproofing-etsi461.1 | 1.0.0 | [schema](data-schemas/sd-jwt/ds014-idproofing-etsi461-sd-jwt.json) | [RB-006](rulebooks/rb-idproofing-etsi461/README.md) |
-| DS-015 | IBAN Attestation for Individuals | eu.ewc.iban-attestation-for-individuals.1 | 1.0.0 | [schema](data-schemas/sd-jwt/ds015-iban-attestation-for-individuals-sd-jwt.json) | [RB-007](rulebooks/rb-iban-attestation-for-individuals/README.md) |
+| DS-014 | ID Proofing ETSI 119 461 | eu.aptitude.idproofing-etsi461.1 | 1.0.0 | [schema](data-schemas/sd-jwt/ds014-idproofing-etsi461-sd-jwt.json) | [RB-006](rulebooks/rb-idproofing-etsi461/README.md) |
+| DS-015 | IBAN Attestation for Individuals | eu.aptitude.iban-attestation-for-individuals.1 | 1.0.0 | [schema](data-schemas/sd-jwt/ds015-iban-attestation-for-individuals-sd-jwt.json) | [RB-007](rulebooks/rb-iban-attestation-for-individuals/README.md) |
 
-Status is Approved for the schemas at version 1.0.0 and Under development for those at 0.9.0. The `vct` values that start with `eu.ewc.` are proposed identifiers for types that had none; the others are the identifiers the types used before.
+Status is Approved for the schemas at version 1.0.0 and Under development for those at 0.9.0. The `vct` values that start with `eu.aptitude.` and `urn:eudi:pid:aptitude:1` are the identifiers of this repository; they differ from the identifiers in the WE BUILD catalogue so that a registry can tell the types apart. The other values are the identifiers the types used before.
 
 DS-008 (Payment Data Confirmation) describes transaction data that a wallet confirms during a presentation. It is in [data-schemas/other](data-schemas/other/ds008-payment-data-confirmation.json).
 

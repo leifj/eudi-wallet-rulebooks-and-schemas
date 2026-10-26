@@ -9,7 +9,7 @@
   "properties": {
     "vct": {
       "type": "string",
-      "const": "eu.ewc.legal-person-identification-data.1",
+      "const": "eu.aptitude.legal-person-identification-data.1",
       "description": "Credential type identifier of the Legal Person Identification Data."
     },
     "issuing_authority": {
