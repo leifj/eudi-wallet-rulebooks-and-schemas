@@ -63,6 +63,25 @@ jobs:
           for d in glob.glob('rulebooks/rb-*'):
               if not os.path.isfile(os.path.join(d, 'README.md')):
                   errors.append(f'{d}: missing README.md')
+          import xml.etree.ElementTree as ET
+          for path in sorted(glob.glob('assets/*/*.svg')):
+              try:
+                  root = ET.parse(path).getroot()
+              except ET.ParseError as e:
+                  errors.append(f'{path}: invalid XML: {e}')
+                  continue
+              tags = {e.tag.split('}')[-1] for e in root.iter()}
+              for bad in sorted(tags & {'script', 'image', 'foreignObject', 'style', 'iframe', 'a'}):
+                  errors.append(f'{path}: <{bad}> is not allowed in a card')
+              text = open(path, encoding='utf-8').read()
+              if 'data:' in text or re.search(r'(href|src)\s*=\s*"https?:', text):
+                  errors.append(f'{path}: external or data: references are not allowed')
+              if not root.get('viewBox'):
+                  errors.append(f'{path}: viewBox is required')
+              slug = path.split('/')[1]
+              schemas = [p for p in glob.glob('data-schemas/sd-jwt/*-sd-jwt.json') if re.sub(r'^ds\d+-', '', os.path.basename(p)[:-len('-sd-jwt.json')]) == slug]
+              if not schemas:
+                  errors.append(f'{path}: no data schema with the slug {slug}')
           if errors:
               print('\n'.join(errors)); sys.exit(1)
           print('schemas and rulebooks OK')

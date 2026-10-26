@@ -50,3 +50,12 @@ registry-cli build --sources /tmp/sources.yaml --output /tmp/ewc-out
 ```
 
 registry-cli writes generated files next to a local source, so build from a copy.
+
+## Card artwork
+
+`assets/<slug>/card.svg` is an optional SVG template for the credential card; `card-dark.svg` and `logo.svg` are optional too. The registry publishes the attestation type without them.
+
+- `viewBox="0 0 400 252"`, with a title and up to five claims as `{{claim}}` placeholders; nested claims as `{{parent.child}}`.
+- Each placeholder names a claim of the data schema. A scalar claim renders best.
+- The file is self-contained: no `<script>`, `<style>`, `<image>`, `data:` URI or external reference. The text colour has a contrast of at least 4.5:1 with its background.
+- The colours follow the domain: identity navy `#0B2A5B`, finance green `#0B5D3B`, company teal `#0E5A63`, mobility purple `#5B2A86`.
