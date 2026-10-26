@@ -8,7 +8,7 @@
   "properties": {
     "vct": {
       "type": "string",
-      "const": "eu.ewc.ultimate-beneficial-owners-attestation.1",
+      "const": "eu.aptitude.ultimate-beneficial-owners-attestation.1",
       "description": "Verifiable credential type identifier of the Ultimate Beneficial Owners attestation."
     },
     "legal_person": {

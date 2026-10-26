@@ -121,7 +121,7 @@ This table contains the name of the attribute, its description, and whether the 
 | ...ownership_details.inactive_date | Date when the UBO's interest became inactive (if applicable). | No |
 | ...ownership_details.last_change_date | Date when the UBO's interest was last changed. | No |
 
-The attestation is an SD-JWT VC with the `vct` value `eu.ewc.ultimate-beneficial-owners-attestation.1`. The claims sit at the top level of the SD-JWT VC payload; revocation uses the SD-JWT VC `status` claim.
+The attestation is an SD-JWT VC with the `vct` value `eu.aptitude.ultimate-beneficial-owners-attestation.1`. The claims sit at the top level of the SD-JWT VC payload; revocation uses the SD-JWT VC `status` claim.
 
 The UBO schema is available in this repository: [UBO data schema](../../data-schemas/sd-jwt/ds006-ultimate-beneficial-owners-attestation-sd-jwt.json).
 

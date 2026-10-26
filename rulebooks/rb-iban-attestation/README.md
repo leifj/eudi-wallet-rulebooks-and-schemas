@@ -128,7 +128,7 @@ This table contains the name of the metadatum, its description, and whether the 
 
 | Metadatum Name | Description | Required |
 | ------------- | ----------- | -------- |
-| vct | Verifiable credential type identifier, `eu.ewc.iban-attestation.1`. | Yes |
+| vct | Verifiable credential type identifier, `eu.aptitude.iban-attestation.1`. | Yes |
 | issuing_authority | Name of the issuer that issued the credential. | Yes |
 | issuing_authority_id | EUID of the issuing authority. | Yes |
 | issuance_date | Date and possibly time of issuance. | Yes |

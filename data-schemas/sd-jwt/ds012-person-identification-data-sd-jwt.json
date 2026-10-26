@@ -8,8 +8,8 @@
   "properties": {
     "vct": {
       "type": "string",
-      "const": "urn:eudi:pid:1",
-      "description": "Verifiable credential type identifier of the PID."
+      "const": "urn:eudi:pid:aptitude:1",
+      "description": "Verifiable credential type identifier of the PID. The identifier follows the pattern `urn:eudi:pid:<domain>:1` of national PID types, with `aptitude` as the domain."
     },
     "family_name": {
       "type": "string",

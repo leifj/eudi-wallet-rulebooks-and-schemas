@@ -8,7 +8,7 @@
   "properties": {
     "vct": {
       "type": "string",
-      "const": "eu.ewc.signatory-rights-attestation.1",
+      "const": "eu.aptitude.signatory-rights-attestation.1",
       "description": "Verifiable credential type identifier of the Signatory Rights attestation."
     },
     "legal_person_name": {

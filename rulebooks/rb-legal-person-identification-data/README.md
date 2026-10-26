@@ -95,7 +95,7 @@ The reason is that the LPID would have to be revoked more often if the LPID atte
 The LPID attributes are described in a table in chapter 5.10.3 in RFC-005:
 [RFC-005](https://github.com/EWC-consortium/eudi-wallet-rfcs/blob/main/ewc-rfc005-issue-legal-person-identification-data.md)
 
-The LPID data schema is available in this repository: [LPID data schema](../../data-schemas/sd-jwt/ds004-legal-person-identification-data-sd-jwt.json). The credential type (`vct`) is `eu.ewc.legal-person-identification-data.1`. Revocation information is carried in the SD-JWT VC `status` claim.
+The LPID data schema is available in this repository: [LPID data schema](../../data-schemas/sd-jwt/ds004-legal-person-identification-data-sd-jwt.json). The credential type (`vct`) is `eu.aptitude.legal-person-identification-data.1`. Revocation information is carried in the SD-JWT VC `status` claim.
 
 | Attribute | Description | Required |
 | --------- | ----------- | -------- |

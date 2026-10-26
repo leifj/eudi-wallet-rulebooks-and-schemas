@@ -8,7 +8,7 @@
   "properties": {
     "vct": {
       "type": "string",
-      "const": "eu.ewc.iban-attestation-for-individuals.1",
+      "const": "eu.aptitude.iban-attestation-for-individuals.1",
       "description": "Verifiable credential type identifier of the IBAN Attestation for Individuals."
     },
     "issuing_authority": {

@@ -8,7 +8,7 @@
   "properties": {
     "vct": {
       "type": "string",
-      "const": "eu.ewc.idproofing-etsi461.1",
+      "const": "eu.aptitude.idproofing-etsi461.1",
       "description": "Verifiable credential type identifier of the ID proofing attestation."
     },
     "family_name": {
