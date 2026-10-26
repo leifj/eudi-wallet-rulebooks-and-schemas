@@ -2,7 +2,7 @@
 
 Status: Approved
 
-Credential type (vct): `eu.ewc.idproofing-etsi461.1`
+Credential type (vct): `eu.aptitude.idproofing-etsi461.1`
 
 ## Table of Contents
 

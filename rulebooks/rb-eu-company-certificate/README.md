@@ -139,7 +139,7 @@ This table contains the name of the attribute, its description, and whether the 
 | legal_representative[].legal_person_id | Legal person entry: unique identifier of the organisation in EUID structure. | Yes |
 | legal_representative[].legal_form_type | Legal person entry: legal form of the legal person representing the company. | Yes |
 
-The required marking for the `legal_representative[]` attributes applies within the respective entry kind. Revocation information is carried in the SD-JWT VC `status` claim. The credential type (`vct`) is `eu.ewc.eu-company-certificate.1`.
+The required marking for the `legal_representative[]` attributes applies within the respective entry kind. Revocation information is carried in the SD-JWT VC `status` claim. The credential type (`vct`) is `eu.aptitude.eu-company-certificate.1`.
 
 The EUCC schema is available in the EWC schemas and rulebooks repository: [EUCC data schema](../../data-schemas/sd-jwt/ds001-eu-company-certificate-sd-jwt.json).
 

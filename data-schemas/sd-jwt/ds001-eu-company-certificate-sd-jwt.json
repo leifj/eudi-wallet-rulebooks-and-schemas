@@ -9,7 +9,7 @@
   "properties": {
     "vct": {
       "type": "string",
-      "const": "eu.ewc.eu-company-certificate.1",
+      "const": "eu.aptitude.eu-company-certificate.1",
       "description": "Credential type identifier of the EU Company Certificate."
     },
     "issuing_authority": {
