@@ -43,7 +43,7 @@ The slug is the file name without `dsNNN-` and `-sd-jwt.json`; its case is kept.
 ## Checking a build locally
 
 ```sh
-go install github.com/sirosfoundation/registry-cli/cmd/registry-cli@v0.17.0
+go install github.com/sirosfoundation/registry-cli/cmd/registry-cli@v0.18.0
 cp -r . /tmp/ewc-src
 sed 's#__REPO__#/tmp/ewc-src#' .github/registry-ci-sources.yaml > /tmp/sources.yaml
 registry-cli build --sources /tmp/sources.yaml --output /tmp/ewc-out
