@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://registry.siros.org/ewc-consortium/signatory-rights-attestation.schema.json",
+  "title": "Signatory Rights Attestation",
+  "description": "Attests which natural or legal persons hold full signatory rights to engage a legal person, as registered in a national business register (EWC WP3).",
+  "version": "1.0.0",
+  "type": "object",
+  "properties": {
+    "vct": {
+      "type": "string",
+      "const": "eu.ewc.signatory-rights-attestation.1",
+      "description": "Verifiable credential type identifier of the Signatory Rights attestation."
+    },
+    "legal_person_name": {
+      "type": "string",
+      "description": "Official current legal person name as registered in the business register.",
+      "examples": ["Example Holding AB"]
+    },
+    "legal_person_id": {
+      "type": "string",
+      "description": "Unique id for organisations in EUID structure.",
+      "examples": ["SE.5560000000"]
+    },
+    "signatory_rights": {
+      "type": "array",
+      "description": "Information about the persons and their signatory rights over the legal person.",
+      "items": {
+        "oneOf": [
+          { "$ref": "#/$defs/signatory_rights_held_by_person" },
+          { "$ref": "#/$defs/signatory_rights_held_by_legal_person" }
+        ]
+      }
+    }
+  },
+  "required": ["vct", "legal_person_name", "legal_person_id", "signatory_rights"],
+  "$defs": {
+    "post": {
+      "type": "array",
+      "description": "Role of the signatory as registered.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "National code of the post."
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the post as registered."
+          }
+        },
+        "required": ["name"]
+      }
+    },
+    "signatory_rights_held_by_person": {
+      "type": "object",
+      "description": "Signatory right held by a natural person.",
+      "properties": {
+        "full_name": {
+          "type": "string",
+          "description": "Full name of the natural person representing the company."
+        },
+        "date_of_birth": {
+          "type": "string",
+          "format": "date",
+          "description": "Date of birth of the natural person representing the company."
+        },
+        "nationality": {
+          "type": "string",
+          "description": "Nationality of the natural person representing the company."
+        },
+        "signatory_rule": {
+          "type": "string",
+          "enum": ["alone"],
+          "description": "Information if the signatory can engage the company alone or jointly."
+        },
+        "post": { "$ref": "#/$defs/post" }
+      },
+      "required": ["full_name", "date_of_birth", "signatory_rule"]
+    },
+    "signatory_rights_held_by_legal_person": {
+      "type": "object",
+      "description": "Signatory right held by a legal person.",
+      "properties": {
+        "legal_person_name": {
+          "type": "string",
+          "description": "Official current legal person name of the signatory as registered in the business register."
+        },
+        "legal_person_id": {
+          "type": "string",
+          "description": "Unique id of the signatory organisation in EUID structure."
+        },
+        "signatory_rule": {
+          "type": "string",
+          "enum": ["alone"],
+          "description": "Information if the signatory can engage the company alone or jointly."
+        },
+        "post": { "$ref": "#/$defs/post" }
+      },
+      "required": ["legal_person_name", "legal_person_id", "signatory_rule"]
+    }
+  }
+}

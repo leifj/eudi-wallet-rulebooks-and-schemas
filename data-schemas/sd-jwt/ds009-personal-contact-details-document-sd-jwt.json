@@ -1,17 +1,10 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Perconal Contact Details",
-  "description": "Verifiable Credential for Perconal Contact Details.",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://registry.siros.org/ewc-consortium/personal-contact-details-document.schema.json",
+  "title": "Personal Contact Details",
+  "description": "Personal contact details (name, phone, email and residence address) of an individual.",
+  "version": "0.9.0",
   "type": "object",
-  "required": [
-    "surname",
-    "given_name",
-    "phone",
-    "email_address",
-    "iss",
-    "iat",
-    "vct"
-  ],
   "properties": {
     "surname": {
       "type": "string",
@@ -31,7 +24,8 @@
     "email_address": {
       "type": "string",
       "title": "Email Address",
-      "description": "The email address of the individual."
+      "description": "The email address of the individual.",
+      "format": "email"
     },
     "city_address": {
       "type": "string",
@@ -47,20 +41,33 @@
       "type": "string",
       "title": "Country Address",
       "description": "The country of the individual's residence."
+    },
+    "vct": {
+      "type": "string",
+      "const": "eu.europa.ec.eudi.pcd.1",
+      "description": "Credential type identifier."
+    },
+    "iss": {
+      "type": "string",
+      "format": "uri",
+      "description": "Issuer of the credential."
+    },
+    "iat": {
+      "type": "integer",
+      "description": "Time of issuance (NumericDate)."
+    },
+    "exp": {
+      "type": "integer",
+      "description": "Expiry time of the credential (NumericDate)."
     }
   },
-  "iss": {
-    "type": "string",
-    "format": "uri"
-  },
-  "iat": {
-    "type": "integer"
-  },
-  "exp": {
-    "type": "integer"
-  },
-  "vct": {
-    "type": "string",
-    "const": "eu.europa.ec.eudi.pcd.1"
-  }
+  "required": [
+    "surname",
+    "given_name",
+    "phone",
+    "email_address",
+    "iss",
+    "iat",
+    "vct"
+  ]
 }

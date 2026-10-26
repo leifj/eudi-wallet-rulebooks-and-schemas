@@ -1,12 +1,17 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://registry.siros.org/ewc-consortium/payment-wallet-attestation.schema.json",
   "title": "Payment Wallet Attestation",
-  "description": "Schema for Payment Wallet Attestation (PWA) credentials.",
+  "description": "Payment Wallet Attestation (PWA) issued by a payment service provider (PSP) to bind a wallet to a funding source.",
+  "version": "0.9.0",
   "type": "object",
   "properties": {
     "iss": {
       "description": "Issuer of the credential.",
-      "type": "string"
+      "type": "string",
+      "examples": [
+        "https://psp.example.com"
+      ]
     },
     "aud": {
       "description": "Intended audience of the credential.",
@@ -29,9 +34,9 @@
       "type": "number"
     },
     "vct": {
-      "description": "Currently, the supported value is PaymentWalletAttestation.",
       "type": "string",
-      "enum": ["PaymentWalletAttestation"]
+      "const": "PaymentWalletAttestation",
+      "description": "Credential type identifier; the only supported value is PaymentWalletAttestation."
     },
     "jti": {
       "description": "Unique identifier assigned and retained by the PSP for this credential.",
@@ -44,7 +49,11 @@
         "type": {
           "description": "Type of funding source, supported values are account, card, and any.",
           "type": "string",
-          "enum": ["account", "card", "any"]
+          "enum": [
+            "account",
+            "card",
+            "any"
+          ]
         },
         "panLastFour": {
           "description": "Last four digits of the Primary Account Number (PAN).",
@@ -103,7 +112,14 @@
           "type": "string",
           "format": "uri"
         }
-      }
+      },
+      "examples": [
+        {
+          "type": "card",
+          "panLastFour": "1234",
+          "iin": "411111"
+        }
+      ]
     },
     "cnf": {
       "description": "Object containing information for cryptographic holder binding.",
@@ -130,13 +146,27 @@
               "type": "string"
             }
           },
-          "required": ["kty", "crv", "x", "y"]
+          "required": [
+            "kty",
+            "crv",
+            "x",
+            "y"
+          ]
         }
       },
-      "required": ["jwk"]
+      "required": [
+        "jwk"
+      ]
     }
   },
-  "required": ["iss", "sub", "iat", "vct", "fundingSource", "cnf"],
+  "required": [
+    "iss",
+    "sub",
+    "iat",
+    "vct",
+    "fundingSource",
+    "cnf"
+  ],
   "allOf": [
     {
       "if": {
@@ -153,7 +183,10 @@
       "then": {
         "properties": {
           "fundingSource": {
-            "required": ["panLastFour", "iin"]
+            "required": [
+              "panLastFour",
+              "iin"
+            ]
           }
         }
       }
@@ -173,7 +206,10 @@
       "then": {
         "properties": {
           "fundingSource": {
-            "required": ["ibanLastFour", "bic"]
+            "required": [
+              "ibanLastFour",
+              "bic"
+            ]
           }
         }
       }
@@ -196,16 +232,24 @@
             "not": {
               "anyOf": [
                 {
-                  "required": ["aliasId"]
+                  "required": [
+                    "aliasId"
+                  ]
                 },
                 {
-                  "required": ["currency"]
+                  "required": [
+                    "currency"
+                  ]
                 },
                 {
-                  "required": ["scheme"]
+                  "required": [
+                    "scheme"
+                  ]
                 },
                 {
-                  "required": ["icon"]
+                  "required": [
+                    "icon"
+                  ]
                 }
               ]
             }

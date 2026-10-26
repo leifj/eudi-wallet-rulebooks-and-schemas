@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://registry.siros.org/ewc-consortium/ferry-boarding-pass.schema.json",
+  "title": "Ferry Boarding Pass",
+  "description": "Boarding pass for a ferry passenger, issued as an SD-JWT VC (OpenID4VCI scope ferryBoardingPassCredential).",
+  "version": "0.9.0",
+  "type": "object",
+  "properties": {
+    "vct": {
+      "type": "string",
+      "const": "VerifiableFerryBoardingPassCredentialSDJWT",
+      "description": "Verifiable credential type identifier of the ferry boarding pass."
+    },
+    "identifier": {
+      "type": "string",
+      "description": "Unique identifier of the boarding pass credential."
+    },
+    "ticketQR": {
+      "type": "string",
+      "description": "QR code content of the ticket, used for scanning at boarding."
+    },
+    "ticketNumber": {
+      "type": "string",
+      "description": "Number of the ticket."
+    },
+    "ticketLet": {
+      "type": "string",
+      "description": "Ticket leg (name kept as defined in the source configuration)."
+    },
+    "lastName": {
+      "type": "string",
+      "description": "Last name of the passenger."
+    },
+    "firstName": {
+      "type": "string",
+      "description": "First name of the passenger."
+    },
+    "seatType": {
+      "type": "string",
+      "description": "Type of seat reserved for the passenger."
+    },
+    "seatNumber": {
+      "type": "string",
+      "description": "Number of the seat reserved for the passenger."
+    },
+    "departureDate": {
+      "type": "string",
+      "description": "Date of departure.",
+      "format": "date"
+    },
+    "departureTime": {
+      "type": "string",
+      "description": "Time of departure."
+    },
+    "arrivalDate": {
+      "type": "string",
+      "description": "Date of arrival.",
+      "format": "date"
+    },
+    "arrivalTime": {
+      "type": "string",
+      "description": "Time of arrival."
+    },
+    "arrivalPort": {
+      "type": "string",
+      "description": "Port of arrival."
+    },
+    "vesselDescription": {
+      "type": "string",
+      "description": "Description of the vessel."
+    }
+  },
+  "required": [
+    "vct"
+  ]
+}

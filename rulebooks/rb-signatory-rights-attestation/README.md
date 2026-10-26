@@ -1,4 +1,6 @@
-# SIGNATORY RIGHTS DATA RULEBOOK
+# Signatory Rights Rulebook (RB-004)
+
+Status: Approved
 
 ## Table of Contents
 - [1 Introduction](#1-introduction)
@@ -98,29 +100,28 @@ EWC participating Business Registries don’t impose any data or attributes spec
 
 Signatory Rights attributes have been decided together by business registries in the EWC pilot in accordance with the LPID and EU Company Certificate attestation.
 
-This table contains the name of the attribute, it description and if the attribute is required or not.
+This table contains the name of the attribute, its description and whether the attribute is required or not. Attributes under `signatory_rights` are listed with the prefix `signatory_rights[]`; each entry describes one signatory, held either by a natural person or by a legal person (see section 4.1).
 
-Here is a table with all the attributes from the provided JSON schema, including their descriptions and whether they are required:
+| Attribute | Description | Required |
+|-----------|-------------|----------|
+| legal_person_name | Official current legal person name as registered in the business register. | Yes |
+| legal_person_id | Unique id for organisations in EUID structure. | Yes |
+| signatory_rights | Information about the persons and their signatory rights over the legal person. | Yes |
+| signatory_rights[].full_name | Full name of the natural person representing the company (natural person signatory). | Yes |
+| signatory_rights[].date_of_birth | Date of birth of the natural person representing the company (natural person signatory). | Yes |
+| signatory_rights[].nationality | Nationality of the natural person representing the company (natural person signatory). | No |
+| signatory_rights[].legal_person_name | Official current legal person name of the signatory as registered in the business register (legal person signatory). | Yes |
+| signatory_rights[].legal_person_id | Unique id of the signatory organisation in EUID structure (legal person signatory). | Yes |
+| signatory_rights[].signatory_rule | Information if the signatory can engage the company alone or jointly. Only the value `alone` is allowed. | Yes |
+| signatory_rights[].post | Role of the signatory as registered, a list of posts. | No |
+| signatory_rights[].post[].code | National code of the post. | No |
+| signatory_rights[].post[].name | Name of the post as registered. | Yes (per post) |
 
-| Attribute            | Description                                                                 | Required |
-|----------------------|-----------------------------------------------------------------------------|----------|
-| legal_person_name    | Official current legal person name as registered in the business register.   | Yes      |
-| legal_person_id      | Unique id for organisations in EUID structure.                               | Yes      |
-| signatory_rights     | This object represents information about a natural person’s authority to sign legally binding contracts, agreements, or documents on behalf of an organization or company. | Yes      |
-| full_name            | Full name of the physical person representing the company.                   | Yes      |
-| date_of_birth        | Date of birth of the physical person representing the company.               | Yes      |
-| nationality          | Nationality of the physical person representing the company.                 | No       |
-| signatory_rule       | Information if the signatory can engage the company alone or jointly.        | Yes      |
-| post.code            | National code of the post of the person.                                     | No       |
-| post.name            | Name of the post of the person as registered.                                | Yes      |
+The attestation is an SD-JWT VC with the `vct` value `eu.ewc.signatory-rights-attestation.1`. The claims sit at the top level of the SD-JWT VC payload; revocation uses the SD-JWT VC `status` claim.
 
+The **Signatory Rights schema** is available in this repository: [Signatory Rights data schema](../../data-schemas/sd-jwt/ds003-signatory-rights-attestation-sd-jwt.json).
 
-
-
-The **SIGNATORY RIGHTS schema** is available in the EWC schemas and rulebooks repository: [Signatory Rights data schema](https://github.com/EWC-consortium/eudi-wallet-rulebooks-and-schemas/blob/main/data-schemas/ds001-eu-company-certificate.json).
-
-**Note**: The Signatory Rights attestation metadata are aligned with the LPID. The necessary information about those can be found in the [LPID Rulebook](https://github.com/EWC-consortium/eudi-wallet-rulebooks-and-schemas/blob/main/rulebooks/rb001-legal-person-identification-data.md).
-
+**Note**: The Signatory Rights attestation metadata are aligned with the LPID. The necessary information about those can be found in the [LPID Rulebook](../rb001-legal-person-identification-data.md).
 
 ### 4.1 Signatory rights related attributes
 This document defines the following attributes related to the signatory of a company. This list of attributes allows Signatory rights attestation issuers to use either or both list in order to describe a signatory who is a natural person or a legal person.

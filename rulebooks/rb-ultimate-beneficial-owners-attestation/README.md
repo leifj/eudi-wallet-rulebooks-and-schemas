@@ -1,4 +1,6 @@
-# Ultimate Beneficial Owners Data Rulebook
+# Ultimate Beneficial Owners Rulebook (RB-005)
+
+Status: Under development
 
 ## Table of Contents
 
@@ -71,7 +73,7 @@ In addition to the attributes definition necessary to understand the data schema
 In the EWC context, a generic attestation issuance process has been described by wallet providers in the pilots. Those controls and generic steps are described in [RFC-001](https://github.com/EWC-consortium/eudi-wallet-rfcs/blob/main/ewc-rfc001-issue-verifiable-credential.md).
 
 However, the UBO attestation differs from other attestations in that it must be issued on demand for each presentation request. It is not possible to store and present this attestation several times, as every need requires a request. 
-To comply with the Regulation (Art.10), only Business Registries are allowed to be the authentic source of the EUCC attestation, and they can decide to use a Pub-EAAs provider to issue it on their behalf. 
+To comply with the Regulation (Art.10), only Business Registries are allowed to be the authentic source of the UBO attestation, and they can decide to use a Pub-EAAs provider to issue it on their behalf. 
 
 The Directive (EU) 2024/1640 defines the specific access rules to beneficial ownership registers for person with legitimate interest. 
 Therefore, the attestation can only be requested by the legal representative itself. By his power, a legal representative has a valid legitimate interest in requesting the list of the beneficial owners of the company over which he or she exercises this right.
@@ -94,36 +96,38 @@ UBO attributes have been decided together by business registries in the EWC pilo
 
 This table contains the name of the attribute, its description, and whether the attribute is required or not.
 
-| Property Name                       | Description                                                                                                                                                 | Required |
-|-------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|----------|
-| legal_person      | Attributes about the legal person.                                                                                                                           | Yes      |
-| legal_person_name | Official current legal person name as registered in the business register.                                                                                   | Yes      |
-| legal_person_id   | Unique ID for organisations in EUID structure.                                                                                                               | Yes      |
-| legal_form_type    | Legal form of the company.                                                                                                                                   | Yes      |
-|registered_address | The address of the company.                                                                                                                                  | Yes      |
-| ultimate_beneficial_owner | Details of the Ultimate Beneficial Owner(s) of the company.                                                                                                 | Yes      |
-| natural_person_details | Details of the natural person representing the UBO.                                                                                                        | Yes      |
-| family_name | Family name of the natural person representing the UBO.                                                                                                     | Yes      |
-| first_name  | First name of the natural person representing the UBO.                                                                                                      | Yes      |
-| identifier   | Unique identifier for the natural person representing the UBO.                                                                                             | Yes      |
-| birth_date  | Date of birth of the natural person representing the UBO.                                                                                                  | Yes      |
-|postal_address | Postal address of the natural person representing the UBO.                                                                                                 | Yes      |
-| tax_domicile | Country of taxation of the natural person representing the UBO in the ISO 3166-1 alpha-3 standard.                                                           | No       |
-| is_alive     | Indicates if the natural person representing the UBO is alive.                                                                                             | No       |
-| nationality  | Citizenship of the natural person representing the UBO.                                                                                                   | No       |
-| ownership_details | Details of the ownership of the UBO on the company.                                                                                                         | Yes      |
-| nature_of_control | Nature of the control held by the UBO in the company.                                                                                                      | Yes      |
-| ownership_type   | The type of ownership held by the UBO (e.g., direct, indirect).                                                                                             | Yes      |
-| ownership_percentage | The percentage of ownership held by the UBO in the company. Must be between 0 and 100.                                                                       | Yes      |
-| registrable_date | Date when the UBO’s interest was registered.                                                                                                                 | Yes      |
-| inactive_date    | Date when the UBO’s interest became inactive (if applicable).                                                                                                | No       |
-| last_change_date | Date when the UBO’s interest was last changed.                                                                                                               | No       |
+| Property Name | Description | Required |
+|---------------|-------------|----------|
+| legal_person | Attributes about the legal person. | Yes |
+| legal_person.legal_person_name | Official current legal person name as registered in the business register. | Yes |
+| legal_person.legal_person_id | Unique ID for organisations in EUID structure. | Yes |
+| legal_person.legal_form_type | Legal form of the company. | Yes |
+| legal_person.registered_address | The address of the company. | Yes |
+| ultimate_beneficial_owner | Details of the Ultimate Beneficial Owner(s) of the company; at least one entry. | Yes |
+| ultimate_beneficial_owner[].natural_person_details | Details of the natural person representing the UBO. | Yes |
+| ...natural_person_details.family_name | Family name of the natural person representing the UBO. | Yes |
+| ...natural_person_details.first_name | First name of the natural person representing the UBO. | Yes |
+| ...natural_person_details.identifier | Unique identifier for the natural person representing the UBO. | No |
+| ...natural_person_details.birth_date | Date of birth of the natural person representing the UBO. | Yes |
+| ...natural_person_details.postal_address | Postal address of the natural person representing the UBO. | Yes |
+| ...natural_person_details.tax_domicile | Country of taxation of the natural person representing the UBO in the ISO 3166-1 alpha-3 standard. | No |
+| ...natural_person_details.is_alive | Indicates if the natural person representing the UBO is alive. | No |
+| ...natural_person_details.nationality | Citizenship of the natural person representing the UBO. | No |
+| ultimate_beneficial_owner[].ownership_details | Details of the ownership of the UBO on the company, a list of entries. | Yes |
+| ...ownership_details.nature_of_control | Nature of the interest held by the UBO in the company: `voting_rights`, `control_through_ownership`, `senior_management_position` or `other_means_of_control`. | Yes |
+| ...ownership_details.ownership_type | The type of ownership held by the UBO: `direct`, `indirect` or `both`. | Yes |
+| ...ownership_details.ownership_percentage | The percentage of ownership held by the UBO in the company, either a number between 0 and 100 or a bracket (`0-25`, `25-50`, `50-75`, `75-100`). | Yes |
+| ...ownership_details.registrable_date | Date when the UBO's interest was registered. | Yes |
+| ...ownership_details.inactive_date | Date when the UBO's interest became inactive (if applicable). | No |
+| ...ownership_details.last_change_date | Date when the UBO's interest was last changed. | No |
 
-The UBO schema is available in the EWC schemas and rulebooks repository: [UBO data schema](https://github.com/EWC-consortium/eudi-wallet-rulebooks-and-schemas/blob/main/data-schemas/ds006-ultimate-beneficial-owners-attestation.json).
+The attestation is an SD-JWT VC with the `vct` value `eu.ewc.ultimate-beneficial-owners-attestation.1`. The claims sit at the top level of the SD-JWT VC payload; revocation uses the SD-JWT VC `status` claim.
 
-**Note**: The UBO attestation metadata are aligned with the LPID. The necessary information about those can be found in the [LPID Rulebook](https://github.com/EWC-consortium/eudi-wallet-rulebooks-and-schemas/blob/main/rulebooks/rb001-legal-person-identification-data.md).
+The UBO schema is available in this repository: [UBO data schema](../../data-schemas/sd-jwt/ds006-ultimate-beneficial-owners-attestation-sd-jwt.json).
 
-### 4.3 Minimum number of optional attributes
+**Note**: The UBO attestation metadata are aligned with the LPID. The necessary information about those can be found in the [LPID Rulebook](../rb001-legal-person-identification-data.md).
+
+### 4.1 Minimum number of optional attributes
 
 There is no minimum number of optional attributes for the UBO. Each Business Registry will have the responsibility to fill in the attributes when registered in their national registry.
 
@@ -148,7 +152,7 @@ The UBO attestation SHALL follow the SD-JWT format.
 It SHALL not be possible to log into company registers solely with the UBO attestation, since procedures legally require an individual person to act.
 
 UBO attestation Issuers SHALL follow the UBO attestation requirements and trust mechanisms defined by Authentic Sources on a national level.
-Authentic Sources that are company registration offices need to accept each other's PUB-EAA attestations according to the regulation. Therefore, common legal trust mechanisms need to be established ifor the trust ecosystem to be trustworthy: 
+Authentic Sources that are company registration offices need to accept each other's PUB-EAA attestations according to the regulation. Therefore, common legal trust mechanisms need to be established for the trust ecosystem to be trustworthy: 
 
 - There SHALL be one common schema for the UBO which is accepted by all company registries offices.
 - Only mandatory metadata and attributes SHALL be present in the UBO attestations.

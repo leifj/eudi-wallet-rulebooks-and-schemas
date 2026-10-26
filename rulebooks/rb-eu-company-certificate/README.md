@@ -1,4 +1,6 @@
-# EU Company Certificate Data Rulebook
+# EU Company Certificate Rulebook (RB-002)
+
+Status: Approved
 
 ## Table of Contents
 
@@ -90,46 +92,58 @@ EUCC attributes have been decided together by business registries in the EWC pil
 
 This table contains the name of the attribute, its description, and whether the attribute is required or not.
 
-| Property Name | Description | Required |
-| ------------- | ----------- | -------- |
-| legal_person | Information regarding the legal entity, including name, ID, legal form, etc. | Yes |
-| legal_person_name | Official current legal entity name as registered in the business register. | Yes |
-| legal_person_id | Unique ID for the legal entity in the EUID structure. | Yes |
-| legal_form_type | Legal form of the company. | Yes |
-| registration_member_state | The member state where the company is registered (Alpha-2 country code according to ISO 3166-1). | Yes |
-| registered_address | The official address of the company. | Yes |
-| care_of | Used when the address is at the address of another person or legal entity. | No |
-| full_address | Complete address of the company, written as a string, separated by semicolons. | Yes |
-| thorough_fare | The name of a passage or way through from one location to another. | No |
-| locator_designator | A number or sequence of characters that uniquely identifies the locator within the relevant scope. | No |
-| post_code | The code created and maintained for postal purposes to identify a subdivision of addresses and postal delivery points. | No |
-| post_name | A name created and maintained for postal purposes to identify a subdivision of addresses and postal delivery points. | No |
-| post_office_box | A location designator for a postal delivery point at a post office, usually a number. | No |
-| locator_name | Proper noun(s) applied to the real-world entity identified by the locator. | No |
-| admin_unit_level_1 | The uppermost administrative unit for the address, almost always a country. | No |
-| admin_unit_level_2 | The name of a secondary level/region of the address, typically a county, state, or other area that encompasses localities. | No |
-| registration_date | Date of company registration. | Yes |
-| share_capital | Amount of the subscribed capital with currency. | No |
-| legal_entity_status | Status of the company as defined in national law and recorded in the national register. | Yes |
-| legal_entity_activity | Main activity or activities of the company, expressed using the NACE (Statistical Classification of Economic Activities). | Yes |
-| legal_entity_duration | Duration of the company, if limited. | No |
-| contact_point | Correspondence address of the company, such as email or postal address (full or partial). | No |
-| contact_email | Details of the company email address. | No |
-| contact_page | Details of the company website. | No |
-| legal_representative | Information about the person(s) authorized to represent the company, either individually or jointly. | Yes |
-| legal_representative.natural_person | Details about the natural person representing the company. | No |
-| full_name | Full name of the natural person representing the company. | Yes |
-| date_of_birth | Date of birth of the natural person representing the company. | Yes |
-| nationality | Nationality of the natural person representing the company. | No |
-| signatory_rule | Information on whether the representative can engage the company alone or jointly. | Yes |
-| legal_representative.legal_person | Details about the legal person representing the company. | No |
-| legal_person_name | Official current legal person name as registered in the business register. | Yes |
-| legal_person_id | Unique ID for the legal entity in the EUID structure. | Yes |
-| legal_form_type | Legal form of the legal person representing the company. | Yes |
+| Attribute | Description | Required |
+| --------- | ----------- | -------- |
+| issuing_authority | Name of the administrative authority that issued this credential, or the ISO 3166 Alpha-2 country code of the Member State if no separate authority is authorized to issue it. | Yes |
+| issuing_authority_id | Identifier of the issuing authority (business register identifier, for example as used in BRIS). | Yes |
+| issuing_country | Alpha-2 country code, as defined in ISO 3166-1, of the issuing country or territory. | Yes |
+| issuing_jurisdiction | Country subdivision code of the issuing jurisdiction, as defined in ISO 3166-2:2020, Clause 8. | No |
+| issuance_date | Date and possibly time when the credential was issued. | Yes |
+| expiry_date | Date and possibly time when the credential expires. | Yes |
+| authentic_source_id | Identifier of the public sector body or private entity responsible for the authentic source. | Yes |
+| authentic_source_name | Name of the public sector body or private entity responsible for the authentic source. | Yes |
+| legal_person | Information regarding the legal entity, including name, ID and legal form. | Yes |
+| legal_person.legal_person_name | Official current legal person name as registered in the business register. | Yes |
+| legal_person.legal_person_id | Unique identifier of the organisation in EUID structure. | Yes |
+| legal_person.legal_form_type | Legal form of the company. | Yes |
+| legal_person.registration_member_state | Member State where the company is registered (Alpha-2 country code according to ISO 3166-1). | Yes |
+| legal_person.registered_address | Registered office of the company (full address or part of it). | Yes |
+| legal_person.registered_address.care_of | Used when the address is at the address of another person or legal entity. | No |
+| legal_person.registered_address.full_address | Complete address of the company, written as a string, separated by semicolons. | Yes |
+| legal_person.registered_address.thorough_fare | The name of a passage or way through from one location to another. | No |
+| legal_person.registered_address.locator_designator | A number or sequence of characters that uniquely identifies the locator within the relevant scope. | No |
+| legal_person.registered_address.post_code | The code created and maintained for postal purposes to identify a subdivision of addresses and postal delivery points. | No |
+| legal_person.registered_address.post_name | A name created and maintained for postal purposes to identify a subdivision of addresses and postal delivery points. | No |
+| legal_person.registered_address.post_office_box | A location designator for a postal delivery point at a post office, usually a number. | No |
+| legal_person.registered_address.locator_name | Proper noun(s) applied to the real-world entity identified by the locator, such as a property, complex, building or room. | No |
+| legal_person.registered_address.admin_unit_level_1 | The uppermost administrative unit for the address, almost always a country. | No |
+| legal_person.registered_address.admin_unit_level_2 | The name of a secondary level or region of the address, typically a county, state, or other area that encompasses localities. | No |
+| legal_person.registration_date | Date of registration of the company. | Yes |
+| legal_person.share_capital | Amount of the subscribed capital with currency. | No |
+| legal_person.share_capital.amount | Amount of the capital subscribed. | No |
+| legal_person.share_capital.currency | Currency code of the capital subscribed, as defined in ISO 4217:2015. | No |
+| legal_person.legal_person_status | Status of the company as defined in national law and recorded in the national register (`active` or `inactive`). | Yes |
+| legal_person.legal_person_activity | Main activity or activities of the company, expressed using the NACE (Statistical Classification of Economic Activities). | Yes |
+| legal_person.legal_person_activity.code | Legal person activity NACE code. | No |
+| legal_person.legal_person_activity.description | Short description of the legal person activity. | No |
+| legal_person.legal_person_duration | Duration of the company, if limited. | No |
+| legal_person.contact_point | Correspondence address of the company, such as email or postal address (full or partial). | No |
+| legal_person.contact_point.contact_page | Details of the company website. | No |
+| legal_person.contact_point.contact_email | Details of the company email address. | No |
+| legal_representative | Array of the persons authorized to represent the company, alone or jointly. Each entry is either a natural person or a legal person. | Yes |
+| legal_representative[].full_name | Natural person entry: full name of the natural person representing the company. | Yes |
+| legal_representative[].date_of_birth | Natural person entry: date of birth of the natural person representing the company. | Yes |
+| legal_representative[].nationality | Natural person entry: nationality of the natural person representing the company. | No |
+| legal_representative[].signatory_rule | Whether the representative can engage the company alone or jointly (`alone` or `joint`). Applies to both entry kinds. | Yes |
+| legal_representative[].legal_person_name | Legal person entry: official current legal person name as registered in the business register. | Yes |
+| legal_representative[].legal_person_id | Legal person entry: unique identifier of the organisation in EUID structure. | Yes |
+| legal_representative[].legal_form_type | Legal person entry: legal form of the legal person representing the company. | Yes |
 
-The EUCC schema is available in the EWC schemas and rulebooks repository: [EUCC data schema](https://github.com/EWC-consortium/eudi-wallet-rulebooks-and-schemas/blob/main/data-schemas/ds001-eu-company-certificate.json).
+The required marking for the `legal_representative[]` attributes applies within the respective entry kind. Revocation information is carried in the SD-JWT VC `status` claim. The credential type (`vct`) is `eu.ewc.eu-company-certificate.1`.
 
-**Note**: The EUCC attestation metadata are aligned with the LPID. The necessary information about those can be found in the [LPID Rulebook](https://github.com/EWC-consortium/eudi-wallet-rulebooks-and-schemas/blob/main/rulebooks/rb001-legal-person-identification-data.md).
+The EUCC schema is available in the EWC schemas and rulebooks repository: [EUCC data schema](../../data-schemas/sd-jwt/ds001-eu-company-certificate-sd-jwt.json).
+
+**Note**: The EUCC attestation metadata (the issuing and authentic source attributes) are aligned with the LPID. The necessary information about those can be found in the [LPID Rulebook](../rb-legal-person-identification-data/README.md).
 
 ### 4.1 Registered address-related attributes
 

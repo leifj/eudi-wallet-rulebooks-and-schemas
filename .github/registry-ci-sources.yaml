@@ -1,0 +1,8 @@
+# Used by the validate workflow: builds this repository the way registry.siros.org does.
+sources:
+  - url: "file://__REPO__"
+    organization: "ewc-consortium"
+    layout: "rulebook-catalog"
+    options:
+      attestation_los: "iso_18045_high"
+      binding_type: "key"

@@ -1,9 +1,12 @@
-# IDProofing ETSI119461 Data Rulebook
+# ID Proofing ETSI 119 461 Rulebook (RB-006)
+
+Status: Approved
+
+Credential type (vct): `eu.ewc.idproofing-etsi461.1`
 
 ## Table of Contents
 
-- [IDProofing ETSI119461 Data Rulebook](#idproofing-etsi119461-data-rulebook)
-  - [Table of Contents](#table-of-contents)
+- [ID Proofing ETSI 119 461 Rulebook (RB-006)](#id-proofing-etsi-119-461-rulebook-rb-006)
   - [1. Introduction](#1-introduction)
     - [1.1 Scope](#11-scope)
     - [1.2 Background](#12-background)
@@ -14,8 +17,10 @@
   - [3. IDProofing Etsi 119.461 Verification process](#3-idproofing-etsi-119461-verification-process)
   - [4. Revocation](#4-revocation)
   - [5. Identity attributes](#5-identity-attributes)
-    - [5.1 Credential Subject attributes](#51-credential-subject-attributes)
-    - [5.2 Identity document attributes](#52-identity-document-attributes)
+    - [5.1 Attestation attributes](#51-attestation-attributes)
+    - [5.2 Credential Subject attributes](#52-credential-subject-attributes)
+    - [5.3 Identity document attributes](#53-identity-document-attributes)
+    - [5.4 Process compliance attributes](#54-process-compliance-attributes)
   - [6. Trust infrastructure details](#6-trust-infrastructure-details)
   - [6. References](#6-references)
 
@@ -65,7 +70,7 @@ Nonetheless in the ARF ch 6.6.3.9 "Relying Party Instance verifies or trusts Use
 
 The business value of this attestation must be seeked also in the ability to represent an enablement of the ecosystem of the wallet in a transition and coexistence phase prior to the consolidation of EUDIW trust model and PID availability to all EU citizens in private contexts. And of course it could enable the availability of different attributes and information than official PID ones, nowadays managed by actual available identification processes provided by local and EU QTSPs. So we assume that within the EUDIW framework, aside the PID there will be a collection of credential related to the official identity of the user like this one and all the others that for instance will represent a credential digital form of physical documents or eIDs. These credentials will be based on existing and certified identification or data verification processes that will enable the progressive adoption of EUDIW in existing business processes of everyday life.
 
-This credential includes subject identity data and ID document data. Because requirements for identity proofing may vary in different countries and some (Q)TSPs may have different preferences, this may lead to different data schemes. A first proposal is provided in [ds014].
+This credential includes subject identity data and ID document data. Because requirements for identity proofing may vary in different countries and some (Q)TSPs may have different preferences, this may lead to different data schemes. A first proposal is provided in the [ID Proofing ETSI 461 data schema](../../data-schemas/sd-jwt/ds014-idproofing-etsi461-sd-jwt.json).
 
 ### 1.4 Key words
 
@@ -110,40 +115,76 @@ The credential lifecycle should follow the identity document one, so whether it'
 ## 5. Identity attributes
 
 Identity attributes have been defined in the EWC deliverable [D4.6 Annex 5], that describes all EAAs in scope of EWC pilot.
-Two objects are described in this attestation, and they follow the new structure of PID provided in the ARF 1.5.1 (rif ds012): 
-1. credentialSubject: it represents the subject and his information that has been collected dureing the identification process; attribute names have been adapted to PID terminology 
-2. documentInfo: evidence references of the identity document used in the identification process
+The attestation is an SD-JWT VC with flat claims. The attributes fall into three groups, which follow the structure of the PID provided in the ARF 1.5.1 (see the [Person Identification Data schema](../../data-schemas/sd-jwt/ds012-person-identification-data-sd-jwt.json)):
+1. Attestation attributes: issuer, validity and trust information of the attestation itself.
+2. Credential subject attributes: the person and the information collected during the identification process; attribute names have been adapted to PID terminology.
+3. `documentInfo`: evidence references of the identity document used in the identification process, and `identityProofingProcessCompliance`: the standards the proofing process satisfies.
 
-The identity scheme is available in the EWC schemas and rulebooks repository: [idproofing etsi 461 data schema](https://github.com/EWC-consortium/eudi-wallet-rulebooks-and-schemas/blob/main/data-schemas/ds014-idproofing-etsi461.json).
+The identity schema is available in this repository: [ID Proofing ETSI 461 data schema](../../data-schemas/sd-jwt/ds014-idproofing-etsi461-sd-jwt.json). Revocation uses the SD-JWT VC `status` claim.
 
-Of course this model could be extended with optional attributes according to specific information that could be present in different eu states on the document. 
+This model can be extended with optional attributes according to specific information that is present in different EU states on the document.
 
-Namespace? we refer ebsi data model?
-
-### 5.1 Credential Subject attributes
-This document defines the following attributes related to the credential subject that has been identified through the process.
+### 5.1 Attestation attributes
 This table contains the name of the attribute, its description, and whether the attribute is required or not.
 
 | Property Name | Description | Required |
 | ------------- | ----------- | -------- |
-| family_name | Family name given at the time of birth of the natural person | Yes |
-| given_name | Current first name of the natural person | Yes |
-| birth_date |  | Yes |
-|  |  | Yes |
-|  |  | Yes |
-|  |  | Yes |
-|  |  | Yes |
+| issuing_authority | Name of the issuer that performed the identity proofing and issued the attestation. | Yes |
+| issuing_country | Alpha-2 country code, as defined in ISO 3166-1, of the issuing country or territory. | Yes |
+| issuing_jurisdiction | Subdivision code as defined in ISO 3166-2:2020 of the issuing country or territory. | No |
+| issuance_date | Date (and if possible time) when the attestation was issued and/or its administrative validity period began. | No |
+| expiry_date | Date and possibly time of expiration of the attestation. Set to the expiry of the identity document used. | Yes |
+| document_number | A number for the attestation, assigned by the issuer. | No |
+| location_status | The location of the validity status information, where the issuer revokes the attestation. | No |
+| trust_anchor | URL at which a machine-readable version of the trust anchor used for verifying the attestation can be found or looked up. | No |
 
-### 5.2 Identity document attributes
-
-This document defines the following attributes related to the identity document used in the identification process.
+### 5.2 Credential Subject attributes
+This document defines the following attributes related to the credential subject that has been identified through the process.
 
 | Property Name | Description | Required |
 | ------------- | ----------- | -------- |
-| document_type | Type of official identity document used in the attestation process | Yes |
-| document_number | Unique identifier on the official identity document | Yes |
-| issued_on | Date when the official identity document was issued | No |
-| expires_on | Expiry date of the official identity document | Yes |
+| family_name | Current last name(s) or surname(s) of the identified person. | Yes |
+| given_name | Current first name(s), including middle name(s), of the identified person. | Yes |
+| birth_date | Date of birth of the identified person. | Yes |
+| birth_place | The country as an alpha-2 country code as specified in ISO 3166-1, or the state, province, district, local area, municipality, city, town or village where the identified person was born. | Yes |
+| nationality | One or more alpha-2 country codes as specified in ISO 3166-1, representing the nationality of the identified person. | Yes |
+| resident_address | The full address of the place where the identified person currently resides or can be contacted (street name, house number, city etc.). | No |
+| resident_country | The country where the identified person currently resides, as an alpha-2 country code as specified in ISO 3166-1. | No |
+| resident_state | The state, province, district or local area where the identified person currently resides. | No |
+| resident_city | The city where the identified person currently resides. | No |
+| resident_postal_code | The postal code of the place where the identified person currently resides. | No |
+| resident_street | The street name of the place where the identified person currently resides. | No |
+| resident_house_number | The house number of the place where the identified person currently resides. | No |
+| personal_administrative_number | A value assigned to the natural person that is unique among all personal administrative numbers issued by the provider. Where Member States include this attribute, they describe the policy applied to its values in their electronic identification schemes. | No |
+| portrait | Facial image of the identified person compliant with ISO 19794-5 or ISO 39794 specifications, encoded as binary data. | No |
+| family_name_birth | Last name(s) or surname(s) of the identified person at the time of birth. | No |
+| given_name_birth | First name(s), including middle name(s), of the identified person at the time of birth. | No |
+| sex | 0 = not known; 1 = male; 2 = female; 3 = other; 4 = inter; 5 = diverse; 6 = open; 9 = not applicable. For values 0, 1, 2 and 9, ISO/IEC 5218 applies. | No |
+| email_address | Electronic mail address of the identified person, in conformance with RFC 5322. | No |
+| mobile_phone_number | Mobile telephone number of the identified person, starting with the '+' symbol as the international code prefix and the country code, followed by numbers only. | No |
+| age_over_18 | Attests whether the identified person is currently an adult (true) or a minor (false). | No |
+| age_over_NN | Attests whether the identified person is at least NN years old, where NN is a number other than 18. | No |
+| age_in_years | The current age of the identified person in years. | No |
+| age_birth_year | The year in which the identified person was born. | No |
+
+### 5.3 Identity document attributes
+
+This document defines the following attributes, nested in the `documentInfo` object, related to the identity document used in the identification process. The `documentInfo` object itself is required.
+
+| Property Name | Description | Required |
+| ------------- | ----------- | -------- |
+| document_type | Type of official identity document used in the attestation process. | Yes |
+| document_number | Unique identifier on the official identity document. | Yes |
+| issued_on | Date when the official identity document was issued. | No |
+| expires_on | Expiry date of the official identity document. | Yes |
+
+### 5.4 Process compliance attributes
+
+The `identityProofingProcessCompliance` object is optional. When present, it contains the following attribute.
+
+| Property Name | Description | Required |
+| ------------- | ----------- | -------- |
+| compliant_with | Regulation at national or EU level, or technical standard, that has been certified or is ensured by the identity proofing service provider. | Yes |
 
 ## 6. Trust infrastructure details
 

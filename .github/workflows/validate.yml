@@ -1,0 +1,85 @@
+name: Validate schemas and registry build
+
+on:
+  pull_request:
+    paths:
+      - 'data-schemas/**'
+      - 'rulebooks/**'
+      - 'assets/**'
+      - '.github/workflows/validate.yml'
+      - '.github/registry-ci-sources.yaml'
+  push:
+    branches: [main]
+    paths:
+      - 'data-schemas/**'
+      - 'rulebooks/**'
+      - 'assets/**'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Schemas, rulebooks and registry build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Check the schemas
+        run: |
+          python -m pip install jsonschema
+          python - <<'PY'
+          import glob, json, os, re, sys
+          from jsonschema import Draft202012Validator
+
+          errors = []
+          for path in sorted(glob.glob('data-schemas/**/*.json', recursive=True)):
+              try:
+                  schema = json.load(open(path, encoding='utf-8'))
+              except ValueError as e:
+                  errors.append(f'{path}: invalid JSON: {e}')
+                  continue
+              if path.startswith('data-schemas/sd-jwt/'):
+                  try:
+                      Draft202012Validator.check_schema(schema)
+                  except Exception as e:
+                      errors.append(f'{path}: not a valid JSON Schema 2020-12: {e.message}')
+                  name = os.path.basename(path)
+                  if not re.fullmatch(r'(ds\d{3}-)?[A-Za-z0-9-]+-sd-jwt\.json', name):
+                      errors.append(f'{path}: name must be [dsNNN-]<name>-sd-jwt.json')
+                  vct = schema.get('properties', {}).get('vct', {})
+                  if not isinstance(vct.get('const'), str):
+                      errors.append(f'{path}: properties.vct.const must be a string')
+                  for key in ('title', 'description', 'version'):
+                      if not schema.get(key):
+                          errors.append(f'{path}: missing {key}')
+          for path in glob.glob('rulebooks/*'):
+              if os.path.isfile(path) and path != 'rulebooks/README.md':
+                  errors.append(f'{path}: rulebooks live in rulebooks/rb-<slug>/README.md')
+          for d in glob.glob('rulebooks/rb-*'):
+              if not os.path.isfile(os.path.join(d, 'README.md')):
+                  errors.append(f'{d}: missing README.md')
+          if errors:
+              print('\n'.join(errors)); sys.exit(1)
+          print('schemas and rulebooks OK')
+          PY
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.26'
+
+      - name: Build the registry from this repository
+        run: |
+          go install github.com/sirosfoundation/registry-cli/cmd/registry-cli@v0.17.0
+          # registry-cli stages generated files next to a local source, so build from a copy
+          cp -r "$GITHUB_WORKSPACE" "$RUNNER_TEMP/src"
+          sed "s#__REPO__#$RUNNER_TEMP/src#" .github/registry-ci-sources.yaml > "$RUNNER_TEMP/sources.yaml"
+          "$(go env GOPATH)/bin/registry-cli" build --sources "$RUNNER_TEMP/sources.yaml" --output "$RUNNER_TEMP/out"
+          expected=$(ls data-schemas/sd-jwt/*-sd-jwt.json | wc -l)
+          actual=$(ls "$RUNNER_TEMP"/out/ewc-consortium/*.vctm.json | wc -l)
+          echo "schemas in sd-jwt/: $expected, published as VCTM: $actual"
+          test "$expected" = "$actual"

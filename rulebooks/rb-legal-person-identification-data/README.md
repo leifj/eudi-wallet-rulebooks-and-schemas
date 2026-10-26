@@ -1,4 +1,6 @@
-# Legal Person Identification Data (LPID) Rulebook
+# Legal Person Identification Data (LPID) Rulebook (RB-001)
+
+Status: Approved
 
 5 September 2024
 
@@ -92,6 +94,21 @@ The reason is that the LPID would have to be revoked more often if the LPID atte
 
 The LPID attributes are described in a table in chapter 5.10.3 in RFC-005:
 [RFC-005](https://github.com/EWC-consortium/eudi-wallet-rfcs/blob/main/ewc-rfc005-issue-legal-person-identification-data.md)
+
+The LPID data schema is available in this repository: [LPID data schema](../../data-schemas/sd-jwt/ds004-legal-person-identification-data-sd-jwt.json). The credential type (`vct`) is `eu.ewc.legal-person-identification-data.1`. Revocation information is carried in the SD-JWT VC `status` claim.
+
+| Attribute | Description | Required |
+| --------- | ----------- | -------- |
+| issuing_authority | Name of the administrative authority that issued this credential, or the ISO 3166 Alpha-2 country code of the Member State if no separate authority is authorized to issue it. | Yes |
+| issuing_authority_id | Identifier of the issuing authority (business register identifier, for example as used in BRIS). | Yes |
+| issuing_country | Alpha-2 country code, as defined in ISO 3166-1, of the issuing country or territory. | Yes |
+| issuing_jurisdiction | Country subdivision code of the issuing jurisdiction, as defined in ISO 3166-2:2020, Clause 8. The first part of the code is the same as issuing_country. | No |
+| issuance_date | Date and possibly time when the credential was issued. | Yes |
+| expiry_date | Date and possibly time when the credential expires. | Yes |
+| authentic_source_id | Identifier of the public sector body or private entity responsible for the authentic source that is the primary source of the information or is recognized as authentic in national law. | No |
+| authentic_source_name | Name of the public sector body or private entity responsible for the authentic source that is the primary source of the information or is recognized as authentic in national law. | No |
+| legal_person_id | Unique identifier of the organisation in EUID structure. | Yes |
+| legal_person_name | Official current legal person name as registered in the business register. | Yes |
 
 # 4 Trust infrastructure details
 
